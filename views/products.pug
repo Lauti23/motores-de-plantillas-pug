@@ -4,15 +4,16 @@ html(lang='en')
         meta(charset='UTF-8')
         meta(http-equiv='X-UA-Compatible', content='IE=edge')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel="stylesheet", href="css/styles.css")
         title Desafio Motores de Plantillas - PUG
     body
         div 
-            h1 Productos 
-            ul
+            h1(class='title') Productos 
+            ul(class='list')
                 each prod in products
-                    li= prod.product + ", " + prod.price 
-                    img(src= prod.url, alt="img") 
+                    li(class='items')= prod.product + ", " + prod.price + ", " 
+                        img(src= prod.url, alt="img") 
                 else 
                     p No hay productos guardados
             a(href='/')
-                button Volver
+                button(class='btnProducts') Volver

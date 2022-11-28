@@ -9,6 +9,9 @@ app.use(express.json())
 app.set('views', './views')
 app.set('view engine', 'pug')
 app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
+
+let products = []
 
 app.get('/', (req, res) => {
     try {
@@ -23,12 +26,20 @@ app.get('/', (req, res) => {
     }
 })
 
-let products = []
+app.get('/products', (req, res) => {
+    try {
+        res.render('products', {
+            products: products
+        })
+    } catch (error) {
+        res.send({status: 'Error', message: error.message})
+    }
+})
 
-app.post('/products', (req, res) => {
+app.post('/', (req, res) => {
     try {
         let product = req.body
-        if (!product || !product.price || !product.url) {
+        if (!product.product || !product.price || !product.url) {
             res.send({status: 'Error', message: 'Faltan campos por completar'})
         } else {
             console.log('REQ.BODY', req.body)
